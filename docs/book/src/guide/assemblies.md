@@ -241,6 +241,31 @@ driven one. A joint follows one link at most, and a coupling that would drive it
 refused. `joint.list` lists each coupling's definition under `links` with an `error` when it can't
 be worked out (the picked face is gone); the link then keeps its last ratio.
 
+**Planetary gear stages** (`gear.planetary`) are built in one step: a sun, evenly spaced planets
+on a carrier, and a ring around them, each a component of its own made of a sketch and an
+extrude. Give the module and the teeth of the sun and of a planet. The ring takes sun + 2 x planet
+teeth, as gears without profile shift need, and three planets go round unless `planets` says
+otherwise. Sun + ring must be a multiple of the planet count so the planets can be spaced evenly;
+a stage that breaks this, or whose planets would overlap, is refused with the planet counts that
+would fit. The ring is grounded (or fixed to `housing`); the sun and the carrier turn on revolute
+joints in it, and each planet on a revolute joint on its pin, as bearings would hold them. Motion
+links turn the carrier and the planets with the sun at the rates their teeth give, so one drive of
+the sun joint turns the whole stage: with the ring held, the carrier turns sun / (sun + ring) as
+far as the sun, one turn for every `ratio` turns of the sun.
+
+Each planet is turned so its teeth fall into the spaces of the sun and of the ring. A tip that
+would dig into its partner's root, below the base circle where the flank is no longer an involute
+(involute interference), is cut back to where it clears, and `notes` say which. `checks` give the
+contact ratio of each mesh (below 1.2 a mesh runs rough, and `warnings` say so) and the gap
+between neighbouring planets. Printed gears want some `backlash`, such as 0.1 to 0.2 mm a mesh:
+each tooth is half of it thinner, and the teeth then miss each other by half of it on both sides.
+`inspect.interference`, or `motion.interference` over a study, intersects the bodies exactly to
+check it. `links: false` leaves each part on its own joint.
+
+A second stage takes `input`, the first stage's carrier joint: its sun is fixed to the first
+carrier, its ring to the first ring, and its links follow the first carrier. Put its `origin` on
+the axis above the first stage's `height`.
+
 **Cam** (`joint.cam {a, b, profile}`, on the **ASSEMBLE** panel) makes a follower ride a cam. The
 cam turns on a revolute joint (a); the follower is a slider (b, a translating follower such as a
 valve tappet) or a revolute joint (b, an oscillating follower such as a rocker arm). The profile

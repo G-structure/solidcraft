@@ -98,6 +98,8 @@ mod metadata;
 pub(crate) mod motion;
 mod notes;
 mod parts;
+mod planetary;
+mod planetary_geometry;
 mod plugin;
 mod point_cloud;
 mod script;
@@ -118,6 +120,8 @@ mod kernel_heal_tests;
 mod panels;
 mod parameter_sweep;
 mod parameters;
+#[cfg(test)]
+mod planetary_tests;
 mod plastic;
 mod print_face;
 mod render;
@@ -391,6 +395,7 @@ pub fn command_specs() -> Vec<&'static CommandSpec> {
     v.extend(panels::COMMANDS.iter());
     v.extend(config::COMMANDS.iter());
     v.extend(gears::COMMANDS.iter());
+    v.extend(planetary::COMMANDS.iter());
     v.extend(parts::COMMANDS.iter());
     v.extend(bom::COMMANDS.iter());
     v.extend(mass_properties::COMMANDS.iter());

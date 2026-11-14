@@ -59,6 +59,8 @@ A slider's value grows as b moves along +z of its origin. Give its two origins t
 {"command":"motion.play","params":{"study":"Open","step":5}}
 {"command":"motion.export","params":{"study":"Open","samples":3}}
 {"command":"occurrence.properties","params":{"occurrence":"Wing:1"}}
+{"command":"gear.planetary","params":{"module":1,"sun_teeth":12,"planet_teeth":18,"planets":3,"face_width":6,"backlash":0.15,"name":"Stage 1"}}
+{"command":"gear.planetary","params":{"module":1,"sun_teeth":15,"planet_teeth":15,"face_width":6,"backlash":0.15,"name":"Stage 2","origin":[0,0,10],"input":"Stage 1 carrier"}}
 ```
 
 - `joint.create` and `joint.as_built` start the joint at its `values` (default 0). A value outside the limits starts at the nearer limit, and the reply's `warnings` say so: the part turned as it was joined.
@@ -71,6 +73,7 @@ A slider's value grows as b moves along +z of its origin. Give its two origins t
 - `joint.reach` (inverse kinematics): moves the joints on the occurrence's chain so its point `at` (world, where it is now; default: the centre of its bodies) gets to `point`, from the pose it is in to the nearest one, within limits, through motion links, and with closed loops kept closed. `z` with `axis` (world, now; default its own z) also turns that axis. `joints: [...]` moves only those (loop followers still follow). The reply: `reached`, `error_mm` (and `error_deg`), `point` where it ended, `values` of the joints that moved, `moved`, and when short, `stopped_by_limit: [{joint, value, limit}]` or `stopped_by_loop: {joint}`. A part that nothing moves answers `moved: false` with a `reason`. Contact sets are not checked; check with `contact.check` afterwards.
 - `motion.study {"study":..., ...}` edits a study; `keys` given replace all keys.
 - `motion.play` sets the joints to the study's values at a step (fractions work) and changes the design. `motion.export` does not change it.
+- `gear.planetary {module, sun_teeth, planet_teeth, planets?, pressure_angle?, face_width?, backlash?, name?, origin?, input?, housing?, links?}`: one planetary stage about +Z through `origin`, in one undo step. The reply gives `ratio` (sun turns per carrier turn, ring held), each part's `component`, `occurrence` and `joint` (lists for the planets), its gear circles (`tip_cut_from` where a tip was cut back so it clears its partner's root), `links` (the carrier's, then each planet's), `height` (to the top of the carrier: where a next stage starts), `checks` (`neighbour_gap`, the contact ratios) and `notes`. Joints are named `<name> sun`, `<name> carrier` and `<name> planet 1`, `2`…; with `input`, `<name> sun mount` fixes the sun to the part `input` turns and `<name> ring mount` the ring to `housing` (default: what `input` turns against). In the example, Stage 1 is 6 + 0.5 + 3 = 9.5 mm high and turns 5:1, Stage 2 turns 4:1 on its carrier: 20:1 in all.
 
 ## Worked example: a panel on an actuator
 

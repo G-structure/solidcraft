@@ -1,0 +1,26 @@
+{
+  "en": {
+    "cmd.gear_planetary": "Planetary Gears"
+  },
+  "ar": {
+    "cmd.gear_planetary": "تروس كوكبية"
+  },
+  "de": {
+    "cmd.gear_planetary": "Planetengetriebe"
+  },
+  "he": {
+    "cmd.gear_planetary": "גלגלי שיניים פלנטריים"
+  },
+  "ja": {
+    "cmd.gear_planetary": "遊星歯車"
+  },
+  "ko": {
+    "cmd.gear_planetary": "유성 기어"
+  },
+  "vi": {
+    "cmd.gear_planetary": "Bánh răng hành tinh"
+  },
+  "zh": {
+    "cmd.gear_planetary": "行星齿轮"
+  }
+}
