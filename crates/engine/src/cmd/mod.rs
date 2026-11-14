@@ -81,6 +81,8 @@ mod design_link;
 mod file;
 mod frame;
 mod frame_end_cap;
+mod gear_profile;
+mod gears;
 pub(crate) mod inspect;
 mod interference;
 pub(crate) mod joints;
@@ -109,6 +111,8 @@ pub(crate) use measure_sel::{measure_items, shape_of};
 pub(crate) use measure_shape::Shape;
 pub(crate) use point_cloud::filters as point_cloud_filters;
 pub(crate) use script::step_params;
+#[cfg(test)]
+mod gears_tests;
 #[cfg(test)]
 mod kernel_heal_tests;
 mod panels;
@@ -386,6 +390,7 @@ pub fn command_specs() -> Vec<&'static CommandSpec> {
     v.extend(motion::COMMANDS.iter());
     v.extend(panels::COMMANDS.iter());
     v.extend(config::COMMANDS.iter());
+    v.extend(gears::COMMANDS.iter());
     v.extend(parts::COMMANDS.iter());
     v.extend(bom::COMMANDS.iter());
     v.extend(mass_properties::COMMANDS.iter());
